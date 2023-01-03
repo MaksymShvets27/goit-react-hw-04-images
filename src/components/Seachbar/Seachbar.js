@@ -1,43 +1,35 @@
 import PropsTypes from 'prop-types';
-import React from 'react';
+import { useState } from 'react';
 import css from './Seachbar.module.css';
 
-class Seachbar extends React.Component {
-  static propTypes = { onSubmit: PropsTypes.func.isRequired };
-  state = {
-    currentSeachValue: '',
-  };
+const Seachbar = ({ onSubmit }) => {
+  const [currentSeachValue, setCurrentSeachValue] = useState('');
 
-  seachbarSubmit = event => {
+  const seachbarSubmit = event => {
     event.preventDefault();
-    this.props.onSubmit(this.state.currentSeachValue);
+    onSubmit(currentSeachValue);
   };
-  render() {
-    return (
-      <header className={css.Searchbar}>
-        <form className={css.SeacrhForm}>
-          <button
-            type="submit"
-            className={css.Button}
-            onClick={this.seachbarSubmit}
-          >
-            <span className={css.ButtonLabel}>Search</span>
-          </button>
 
-          <input
-            className={css.Input}
-            type="text"
-            autoComplete="off"
-            autoFocus
-            placeholder="Search images and photos"
-            onChange={event =>
-              this.setState({ currentSeachValue: event.target.value })
-            }
-          />
-        </form>
-      </header>
-    );
-  }
-}
+  return (
+    <header className={css.Searchbar}>
+      <form className={css.SeacrhForm}>
+        <button type="submit" className={css.Button} onClick={seachbarSubmit}>
+          <span className={css.ButtonLabel}>Search</span>
+        </button>
+
+        <input
+          className={css.Input}
+          type="text"
+          autoComplete="off"
+          autoFocus
+          placeholder="Search images and photos"
+          onChange={event => setCurrentSeachValue(event.target.value)}
+        />
+      </form>
+    </header>
+  );
+};
+
+Seachbar.propTypes = { onSubmit: PropsTypes.func.isRequired };
 
 export default Seachbar;

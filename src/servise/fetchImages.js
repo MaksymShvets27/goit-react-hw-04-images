@@ -12,5 +12,5 @@ export default async function fetchImages(seachName, page) {
     options
   );
 
-  return imgResponce;
+  return imgResponce.data.hits;
 }
